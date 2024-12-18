@@ -9,10 +9,21 @@
 #include "pid.h"
 
 
+void PID_init(PID_Typedef* pid)
+{
+	pid->integral = 0;
+	pid->derivative = 0;
+	pid->lastError = 0;
+
+	pid->currentPoint = 0;
+	pid->output = 0;
+
+}
+
 void PID_updateOutput(PID_Typedef* pid)
 {
 	// Get the error
-	int error = pid->targetPoint - pid->currentPoint;
+	double error = pid->targetPoint - pid->currentPoint;
 
 	//	Get Integral
 	pid->integral += pid->lastError;
@@ -27,6 +38,10 @@ void PID_updateOutput(PID_Typedef* pid)
 	if(pid->output > pid->outputUpperLimit)
 	{
 		pid->output = pid->outputUpperLimit;
+	}
+	if(pid->output < pid->outputLowerLimit)
+	{
+		pid->output = pid->outputLowerLimit;
 	}
 
 	// Update lastError

@@ -11,18 +11,20 @@
 typedef struct PID_TYPEDEF
 {
 //	int error;
-	int lastError;
-	int integral;
-	int derivative;
-	int kp;
-	int ki;
-	int kd;
-	int targetPoint;
-	int currentPoint;
-	int output;
-	int outputUpperLimit;
+	double lastError;
+	double integral;
+	double derivative;
+	double kp;
+	double ki;
+	double kd;
+	double targetPoint;
+	double currentPoint;
+	double output;
+	double outputUpperLimit;
+	double outputLowerLimit;
 }PID_Typedef;
 
-int PID_updateOutput(int targetPoint, int currentPoint);
+void PID_updateOutput(PID_Typedef* pid);
+void PID_init(PID_Typedef* pid);
 
 #endif /* INC_PID_C_ */
